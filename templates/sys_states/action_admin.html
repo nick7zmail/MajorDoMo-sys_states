@@ -1,0 +1,85 @@
+<ul class="nav nav-tabs">
+[#begin TITLES#]
+<li [#if ACTIVE==1#]class="active"[#endif#]><a href="?tab=[#TAB#]">[#TITLE#]</a>
+</li>
+[#end TITLES#]
+<li><a href="#">+</a></li>
+</ul>
+
+<a href="#" class="btn btn-primary" onClick="$('#tab_settings').toggle();return false;"><span class="glyphicon glyphicon-cog"></span></a>
+
+<div style="display:none" id='tab_settings'>
+<form action="?" method="post" enctype="multipart/form-data" name="frmEdit" class="form-horizontal">
+<fieldset>
+	<div class="form-group">
+	 <label class="col-lg-3 control-label"[#if OBJECT_ERR#] style="color:red;font-weight:bold"[#endif#]>
+	 Имя объекта:
+	 </label>
+	 <div class="col-lg-4"><input type="text" class="form-control" value="[#OBJECT#]" disabled></div>
+	</div>
+	<div class="form-group">
+	 <label class="col-lg-3 control-label">
+	 Имя вкладки:
+	 </label>
+	 <div class="col-lg-4"><input type="text" class="form-control" name="tab_title" value="[#TAB_TITLE#]" id="tab_title"></div>
+	</div>
+	<div class="form-group">
+	 <label class="col-lg-3 control-label">
+	 Имя статуса:
+	 </label>
+	 <div class="col-lg-4"><input type="text" class="form-control" name="state_title" value="[#STATE_TITLE#]" id="state_title"></div>
+	</div>
+	<div class="form-group">
+	<div class="col-lg-offset-3 col-lg-4">
+		<button type="submit" name="subm" value="Submit" class="btn btn-primary"><#LANG_SUBMIT#></button>
+		<input type="hidden" name="tab" value="<#TAB#>">
+		<input type="hidden" name="view_mode" value="<#VIEW_MODE#>">
+		<input type="hidden" name="edit_mode" value="<#EDIT_MODE#>">
+		<input type="hidden" name="mode" value="save_settings">
+	</div>
+	</div>
+</fieldset>
+</form>
+</div>
+
+[#if CYCLES#]
+<form action="?" method="post" enctype="multipart/form-data" name="frmEdit2" class="form-horizontal">
+<fieldset>
+<table class="table table-striped">
+<tr>
+  <td>Cycle</td>
+  <td>Description</td>
+  <td>State</td>
+</tr>
+[#begin CYCLES#]
+<tr>
+<td>[#CYCLE#]</td>
+<td><input type="text" class="form-control" name="cycle_name_[#CYCLE#]" value="[#CYCLE_NAME#]" id="cycle_name_[#CYCLE#]"></div></td>
+<td>
+<div class="radio-inline">
+          <input type="radio" name="target_state_[#CYCLE#]" value="none"[#if STATE!="yellow" && STATE!="red"#] checked[#endif#]>none
+</div>
+<div class="radio-inline">
+          <input type="radio" name="target_state_[#CYCLE#]" value="yellow"[#if STATE=="yellow"#] checked[#endif#]>yellow
+</div>
+<div class="radio-inline">
+          <input type="radio" name="target_state_[#CYCLE#]" value="red"[#if STATE=="red"#] checked[#endif#]>red
+</div>
+</td>
+</tr>
+
+[#end CYCLES#]
+</table>
+
+<div class="form-group">
+<div class="col-lg-offset-3 col-lg-4">
+		<button type="submit" name="subm" value="Submit" class="btn btn-primary"><#LANG_SUBMIT#></button>
+		<input type="hidden" name="tab" value="<#TAB#>">
+		<input type="hidden" name="view_mode" value="<#VIEW_MODE#>">
+		<input type="hidden" name="edit_mode" value="<#EDIT_MODE#>">
+		<input type="hidden" name="mode" value="save_params">
+</div>
+</div>
+</fieldset>
+</form>
+[#endif CYCLES#]
